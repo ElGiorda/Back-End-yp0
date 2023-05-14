@@ -68,16 +68,16 @@ public class SkillsController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoSkills dtoskills) {
-        //Validamos si existe el ID
+        
         if (!SkillsServ.existsById(id)) {
             return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
         }
-        //Compara nombre de skills
+        
         if (SkillsServ.existsByNombre(dtoskills.getNombre()) && SkillsServ.getByNombre(dtoskills.getNombre()).get()
                 .getId() != id) {
             return new ResponseEntity(new Mensaje("Esa skill ya existe"), HttpStatus.BAD_REQUEST);
         }
-        //No puede estar vacio
+        
         if (StringUtils.isBlank(dtoskills.getNombre())) {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
